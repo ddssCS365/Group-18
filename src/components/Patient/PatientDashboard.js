@@ -9,15 +9,8 @@ import {
   ArrowLeft,
   Upload,
 } from "lucide-react";
-// Uncomment the relevant import for your routing setup:
-// import { useNavigate } from 'react-router-dom'; // If using React Router
-// import { useRouter } from 'next/router'; // If using Next.js
 
 export default function PatientProfilePage() {
-  // Uncomment the relevant router/navigation hook for your setup:
-  // const navigate = useNavigate(); // React Router
-  // const router = useRouter(); // Next.js
-
   const [patient, setPatient] = useState({
     fullName: "Maryam Alexander",
     dateOfBirth: "22/9/1993",
@@ -41,21 +34,27 @@ export default function PatientProfilePage() {
   const fileInputRef = useRef(null);
 
   const handleEdit = (field) => {
-    setTempValues({ ...patient });
-    setEditing({ ...editing, [field]: true });
+    // Set the temporary value to the current patient value
+    setTempValues((prev) => ({ ...prev, [field]: patient[field] }));
+    // Enable editing for this field only
+    setEditing((prev) => ({ ...prev, [field]: true }));
   };
 
   const handleSave = (field) => {
-    setPatient({ ...patient, [field]: tempValues[field] });
-    setEditing({ ...editing, [field]: false });
+    // Update the patient data with the temporary value
+    setPatient((prev) => ({ ...prev, [field]: tempValues[field] }));
+    // Disable editing for this field
+    setEditing((prev) => ({ ...prev, [field]: false }));
   };
 
   const handleCancel = (field) => {
-    setEditing({ ...editing, [field]: false });
+    // Disable editing without saving changes
+    setEditing((prev) => ({ ...prev, [field]: false }));
   };
 
   const handleChange = (field, value) => {
-    setTempValues({ ...tempValues, [field]: value });
+    // Update only the specific field's temporary value
+    setTempValues((prev) => ({ ...prev, [field]: value }));
   };
 
   const handleImageUpload = (e) => {
@@ -73,20 +72,8 @@ export default function PatientProfilePage() {
     fileInputRef.current.click();
   };
 
-  // Choose the appropriate back navigation method based on your setup
   const handleBack = () => {
-    // Option 1: Using the browser's history API (works in any React app)
     window.history.back();
-
-    // Option 2: If using React Router
-    // navigate(-1);
-
-    // Option 3: If using Next.js
-    // router.back();
-
-    // Option 4: Navigate to a specific route
-    // navigate('/patients'); // React Router
-    // router.push('/patients'); // Next.js
   };
 
   // Creates an editable field component for reuse
@@ -146,9 +133,10 @@ export default function PatientProfilePage() {
             {icon && <Icon className="h-4 w-4 text-gray-400 mr-2" />}
             <input
               type="text"
-              value={tempValues[field]}
+              value={tempValues[field] || ""}
               onChange={(e) => handleChange(field, e.target.value)}
               className="w-full p-1 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              autoFocus
             />
           </div>
         )}
