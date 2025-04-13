@@ -1,10 +1,10 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import Login from './components/login';
-import AdminDashboard from './components/Admin/AdminDashboard';
-import TherapistDashboard from './components/Therapist/TherapistDashboard';
-import PatientDashboard from './components/Patient/PatientDashboard';
-import './App.css';
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import Login from "./components/login";
+import AdminDashboard from "./components/Admin/AdminDashboard";
+import TherapistDashboard from "./components/Therapist/TherapistDashboard";
+import PatientDashboard from "./components/Patient/PatientDashboard";
+import "./App.css";
 
 function App() {
   return (
