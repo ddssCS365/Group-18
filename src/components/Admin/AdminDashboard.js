@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import { Save, X, ArrowLeft, Upload } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function AdminProfilePage() {
   const [admin, setAdmin] = useState({
@@ -9,6 +10,12 @@ export default function AdminProfilePage() {
     lastAssigned: "Dr. Alotaiby to Hassaan Alshalman",
     email: "s201272010@kfupm.edu.sa",
   });
+
+  const navigate = useNavigate(); // Correct placement of useNavigate hook
+
+  const goToManageSecurity = () => {
+    navigate("/manage-security"); // Navigate to the "Manage Security" page
+  };
 
   const [editing, setEditing] = useState({});
   const [tempValues, setTempValues] = useState({ ...admin });
@@ -157,7 +164,10 @@ export default function AdminProfilePage() {
               <EditableField field="lastAssigned" label="Last Assigned" />
               <div>
                 <label className="text-sm font-medium text-gray-500 mb-1 block">Security</label>
-                <button className="text-sm text-white bg-blue-600 px-4 py-1 rounded hover:bg-blue-700">
+                <button
+                  onClick={goToManageSecurity} // Call goToManageSecurity on click
+                  className="text-sm text-white bg-blue-600 px-4 py-1 rounded hover:bg-blue-700"
+                >
                   Manage Security
                 </button>
               </div>

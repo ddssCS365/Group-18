@@ -1,7 +1,9 @@
 import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-
+import React from 'react';
+import { useState } from 'react';
 export default function ManageSecurityPage() {
+  
   const navigate = useNavigate();
 
   const handleBack = () => navigate(-1);
@@ -14,6 +16,7 @@ export default function ManageSecurityPage() {
     allowPatientsToCancel: false,
     allowTherapistsToEditAvailability: true,
   });
+
 
   const handleToggle = (key) => {
     setSecuritySettings((prev) => ({
