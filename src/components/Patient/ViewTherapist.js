@@ -24,7 +24,7 @@ export default function ViewTherapist() {
   }, [sidebarOpen]);
 
   const handleSearch = () => {
-    navigate("AppointmentBooking");
+    navigate("/patient/AppointmentBooking");
   };
 
   return (
@@ -101,7 +101,7 @@ export default function ViewTherapist() {
                 <div className="flex items-center">
                   <span className="w-32 text-sm text-gray-500">Email:</span>
                   <span className="text-base font-semibold">
-                    ddss4038@gmail.com
+                    baselzsa@gmail.com
                   </span>
                 </div>
               </div>
@@ -114,7 +114,7 @@ export default function ViewTherapist() {
                   </span>
                   <span className="text-base font-semibold flex items-center gap-2">
                     <Calendar className="h-4 w-4 text-gray-400" />
-                    22/8/2025
+                    4/19/2025
                   </span>
                 </div>
                 <div className="flex items-center">

@@ -78,9 +78,9 @@ export default function TherapistDashboard() {
     fullName: "Basel Alzahrani",
     phone: "0553322112",
     Email: "s202112345@gmail.com",
-    nextAppointment: "22/08/2025",
-    nextPatient: "Ahmed Naji",
-    dateOfJoin: "5/08/2022",
+    nextAppointment: "4/19/2025",
+    nextPatient: "dr.majid bin afif",
+    dateOfBirth: "1/1/2000",
   });
 
   const [editing, setEditing] = useState({
@@ -313,7 +313,7 @@ export default function TherapistDashboard() {
                   <span className="w-32 text-sm text-gray-500">
                     Date of Birth:
                   </span>
-                  <span className="text-base">{therapist.dateOfJoin}</span>
+                  <span className="text-base">{therapist.dateOfBirth}</span>
                 </div>
               </div>
             </div>
