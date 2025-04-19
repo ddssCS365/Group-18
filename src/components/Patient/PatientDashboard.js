@@ -1,151 +1,173 @@
-import { useState, useRef } from "react";
+// src/components/Therapist/TherapistDashboard.js
+
+import { useState, useRef, useEffect } from "react";
 import {
-  Calendar,
-  Phone,
   Mail,
-  Clock,
+  Calendar,
+  ClipboardList,
+  User,
   Save,
   X,
   ArrowLeft,
   Upload,
+  Menu,
+  Trash2,
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
-export default function PatientProfilePage() {
-  const [patient, setPatient] = useState({
-    fullName: "Maryam Alexander",
-    dateOfBirth: "22/9/1993",
-    email: "0262720610@cityhospital.co",
-    doctor: "Dr. Alami",
-    nextAppointment: "22/4/2025",
-    contact: "054 336 2816",
+function EditableField({
+  field,
+  label,
+  value,
+  editing,
+  tempValue,
+  onEdit,
+  onSave,
+  onCancel,
+  onChange,
+}) {
+  return (
+    <div className="flex items-center">
+      <span className="w-32 text-sm text-gray-500">{label}:</span>
+      {!editing ? (
+        <>
+          <span className="text-base">{value}</span>
+          <button
+            onClick={onEdit}
+            className="text-xs text-blue-600 hover:text-blue-800 ml-2"
+          >
+            Edit
+          </button>
+        </>
+      ) : (
+        <div className="flex-1 flex gap-2">
+          <input
+            type="text"
+            value={tempValue}
+            onChange={(e) => onChange(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && onSave()}
+            className="w-full p-1 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            autoFocus
+          />
+          <button
+            onClick={onSave}
+            className="text-xs flex items-center text-green-600 hover:text-green-800"
+          >
+            <Save className="h-3 w-3 mr-1" /> Save
+          </button>
+          <button
+            onClick={onCancel}
+            className="text-xs flex items-center text-red-600 hover:text-red-800"
+          >
+            <X className="h-3 w-3 mr-1" /> Cancel
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default function TherapistDashboard() {
+  const navigate = useNavigate();
+  const sidebarRef = useRef(null);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [searchType, setSearchType] = useState("Date");
+  const [searchValue, setSearchValue] = useState("");
+
+  const [therapist, setTherapist] = useState({
+    fullName: "Basel Alzahrani",
+    phone: "0553322112",
+    Email: "s202112345@gmail.com",
+    nextAppointment: "22/08/2025",
+    nextPatient: "Ahmed Naji",
+    dateOfJoin: "5/08/2022",
   });
 
   const [editing, setEditing] = useState({
     fullName: false,
-    dateOfBirth: false,
-    email: false,
-    doctor: false,
-    nextAppointment: false,
-    contact: false,
+    Email: false,
   });
 
-  const [tempValues, setTempValues] = useState({ ...patient });
+  const [tempValues, setTempValues] = useState({ ...therapist });
   const [profileImage, setProfileImage] = useState(null);
   const fileInputRef = useRef(null);
 
-  const handleEdit = (field) => {
-    // Set the temporary value to the current patient value
-    setTempValues((prev) => ({ ...prev, [field]: patient[field] }));
-    // Enable editing for this field only
-    setEditing((prev) => ({ ...prev, [field]: true }));
-  };
-
-  const handleSave = (field) => {
-    // Update the patient data with the temporary value
-    setPatient((prev) => ({ ...prev, [field]: tempValues[field] }));
-    // Disable editing for this field
-    setEditing((prev) => ({ ...prev, [field]: false }));
-  };
-
-  const handleCancel = (field) => {
-    // Disable editing without saving changes
-    setEditing((prev) => ({ ...prev, [field]: false }));
-  };
-
-  const handleChange = (field, value) => {
-    // Update only the specific field's temporary value
-    setTempValues((prev) => ({ ...prev, [field]: value }));
-  };
+  const handleBack = () => window.history.back();
+  const triggerFileInput = () => fileInputRef.current.click();
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
-      reader.onload = (e) => {
-        setProfileImage(e.target.result);
-      };
+      reader.onload = (e) => setProfileImage(e.target.result);
       reader.readAsDataURL(file);
     }
   };
 
-  const triggerFileInput = () => {
-    fileInputRef.current.click();
+  const removePhoto = () => setProfileImage(null);
+
+  const handleEdit = (field) => {
+    setTempValues((prev) => ({ ...prev, [field]: therapist[field] }));
+    setEditing((prev) => ({ ...prev, [field]: true }));
   };
 
-  const handleBack = () => {
-    window.history.back();
+  const handleSave = (field) => {
+    setTherapist((prev) => ({ ...prev, [field]: tempValues[field] }));
+    setEditing((prev) => ({ ...prev, [field]: false }));
   };
 
-  // Creates an editable field component for reuse
-  const EditableField = ({ field, label, icon }) => {
-    const Icon = icon;
-
-    return (
-      <div>
-        <div className="flex items-center mb-1">
-          <label className="text-sm font-medium text-gray-500 mr-1">
-            {label}:
-          </label>
-          {!editing[field] ? (
-            <button
-              onClick={() => handleEdit(field)}
-              className="text-xs text-blue-600 hover:text-blue-800 ml-1"
-            >
-              Edit
-            </button>
-          ) : (
-            <div className="flex space-x-2 ml-1">
-              <button
-                onClick={() => handleSave(field)}
-                className="text-xs flex items-center text-green-600 hover:text-green-800"
-              >
-                <Save className="h-3 w-3 mr-1" />
-                Save
-              </button>
-              <button
-                onClick={() => handleCancel(field)}
-                className="text-xs flex items-center text-red-600 hover:text-red-800"
-              >
-                <X className="h-3 w-3 mr-1" />
-                Cancel
-              </button>
-            </div>
-          )}
-        </div>
-
-        {!editing[field] ? (
-          <div className="flex items-center">
-            {icon && <Icon className="h-4 w-4 text-gray-400 mr-2" />}
-            <p
-              className={`${
-                field === "email"
-                  ? "text-sm text-gray-600 break-all"
-                  : "text-base"
-              } ${
-                field === "fullName" || field === "doctor" ? "font-medium" : ""
-              }`}
-            >
-              {patient[field]}
-            </p>
-          </div>
-        ) : (
-          <div className="flex items-center">
-            {icon && <Icon className="h-4 w-4 text-gray-400 mr-2" />}
-            <input
-              type="text"
-              value={tempValues[field] || ""}
-              onChange={(e) => handleChange(field, e.target.value)}
-              className="w-full p-1 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              autoFocus
-            />
-          </div>
-        )}
-      </div>
-    );
+  const handleCancel = (field) => {
+    setEditing((prev) => ({ ...prev, [field]: false }));
   };
+
+  const handleChange = (field, value) => {
+    setTempValues((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleSearch = () => {
+    navigate("AppointmentBooking");
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (
+        sidebarOpen &&
+        sidebarRef.current &&
+        !sidebarRef.current.contains(e.target)
+      ) {
+        setSidebarOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [sidebarOpen]);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 relative">
+      {/* Sidebar Drawer */}
+      <div
+        ref={sidebarRef}
+        className={`fixed top-0 right-0 h-full w-64 bg-white shadow-lg z-50 p-4 transition-transform duration-300 ${
+          sidebarOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-lg font-semibold">Book Appointments</h2>
+          <button
+            onClick={() => setSidebarOpen(false)}
+            className="text-gray-400 hover:text-gray-700"
+          >
+            <X className="h-5 w-5" />
+          </button>
+        </div>
+        <button
+          onClick={handleSearch}
+          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 text-sm"
+        >
+          Book
+        </button>
+      </div>
+
       {/* Header */}
       <header className="bg-white shadow">
         <div className="max-w-7xl mx-auto px-4 py-4 sm:px-6 flex justify-between items-center">
@@ -156,28 +178,19 @@ export default function PatientProfilePage() {
             <ArrowLeft className="h-5 w-5 mr-2" />
             <span className="text-sm">back</span>
           </button>
-          <button className="text-gray-500">
-            <svg
-              className="h-6 w-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
+          <button
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+            className="text-gray-500"
+          >
+            <Menu className="h-6 w-6" />
           </button>
         </div>
       </header>
 
-      {/* Patient Profile Card */}
+      {/* Profile Card */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
         <div className="bg-white shadow rounded-lg overflow-hidden">
-          {/* Profile Header with Avatar Placeholder */}
+          {/* Avatar */}
           <div className="p-6 border-b border-gray-200">
             <div className="flex flex-col items-center justify-center">
               <div
@@ -191,19 +204,7 @@ export default function PatientProfilePage() {
                     className="w-full h-full object-cover"
                   />
                 ) : (
-                  <svg
-                    className="h-12 w-12 text-gray-400"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={1}
-                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                    />
-                  </svg>
+                  <User className="h-12 w-12 text-gray-400" />
                 )}
                 <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                   <Upload className="h-8 w-8 text-white" />
@@ -216,35 +217,104 @@ export default function PatientProfilePage() {
                   className="hidden"
                 />
               </div>
-              <p className="mt-2 text-sm text-blue-600">
-                Click to upload photo
-              </p>
+              <div className="flex gap-4 mt-2">
+                <p
+                  className="text-sm text-blue-600 cursor-pointer"
+                  onClick={triggerFileInput}
+                >
+                  Click to upload photo
+                </p>
+                {profileImage && (
+                  <button
+                    onClick={removePhoto}
+                    className="text-xs flex items-center text-red-600 hover:text-red-800"
+                  >
+                    <Trash2 className="h-4 w-4 mr-1" />
+                    Remove
+                  </button>
+                )}
+              </div>
             </div>
           </div>
 
-          {/* Patient Information */}
+          {/* Info */}
           <div className="p-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Left Column */}
+              {/* Left */}
               <div className="space-y-4">
-                <EditableField field="fullName" label="Full Name" />
                 <EditableField
-                  field="dateOfBirth"
-                  label="Date of Birth"
-                  icon={Calendar}
+                  field="fullName"
+                  label="Full Name"
+                  value={therapist.fullName}
+                  editing={editing.fullName}
+                  tempValue={tempValues.fullName}
+                  onEdit={() => handleEdit("fullName")}
+                  onSave={() => handleSave("fullName")}
+                  onCancel={() => handleCancel("fullName")}
+                  onChange={(value) => handleChange("fullName", value)}
                 />
-                <EditableField field="email" label="Email" icon={Mail} />
+                <EditableField
+                  field="phone"
+                  label="phone"
+                  value={therapist.phone}
+                  editing={editing.phone}
+                  tempValue={tempValues.phone}
+                  onEdit={() => handleEdit("phone")}
+                  onSave={() => handleSave("phone")}
+                  onCancel={() => handleCancel("phone")}
+                  onChange={(value) => handleChange("phone", value)}
+                />
+                <EditableField
+                  field="Email"
+                  label="Email"
+                  value={therapist.Email}
+                  editing={editing.Email}
+                  tempValue={tempValues.Email}
+                  onEdit={() => handleEdit("Email")}
+                  onSave={() => handleSave("Email")}
+                  onCancel={() => handleCancel("Email")}
+                  onChange={(value) => handleChange("Email", value)}
+                />
               </div>
 
-              {/* Right Column */}
+              {/* Right */}
               <div className="space-y-4">
-                <EditableField field="doctor" label="Doctor" />
-                <EditableField
-                  field="nextAppointment"
-                  label="Next Appointment"
-                  icon={Clock}
-                />
-                <EditableField field="contact" label="Contact" icon={Phone} />
+                <div className="flex items-center">
+                  <span className="w-32 text-sm text-gray-500">
+                    Next Appointment:
+                  </span>
+                  <span className="text-base flex items-center gap-2">
+                    <Calendar className="h-4 w-4 text-gray-400" />
+                    {therapist.nextAppointment}
+                    <button
+                      onClick={() => navigate("AppointmentBooking")}
+                      className="text-xs text-blue-600 hover:text-blue-800 ml-2"
+                    >
+                      manage
+                    </button>
+                  </span>
+                </div>
+                <div className="flex items-center">
+                  <span className="w-32 text-sm text-gray-500">
+                    Current Therapist:
+                  </span>
+                  <span className="text-base flex items-center gap-2">
+                    <ClipboardList className="h-4 w-4 text-gray-400" />
+                    {therapist.nextPatient}
+                    <button
+                      onClick={() => navigate("view-therapist")}
+                      className="text-xs text-blue-600 hover:text-blue-800 ml-2"
+                    >
+                      View Details
+                    </button>
+                  </span>
+                </div>
+                <div className="flex items-center">
+                  <span className="w-32 text-sm text-gray-500">
+                    Date of Birth:
+                  </span>
+                  <span className="text-base">{therapist.dateOfJoin}</span>
+                </div>
               </div>
             </div>
           </div>
