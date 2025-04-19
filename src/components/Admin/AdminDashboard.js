@@ -2,6 +2,11 @@ import { useState, useRef } from "react";
 import { Save, X, ArrowLeft, Upload } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
+// Wrapper for each field section
+const FieldBox = ({ children }) => (
+  <div className="border rounded-lg p-4 bg-gray-50 shadow-sm">{children}</div>
+);
+
 export default function AdminProfilePage() {
   const [admin, setAdmin] = useState({
     fullName: "Hussain Alnasser",
@@ -11,12 +16,7 @@ export default function AdminProfilePage() {
     email: "s201272010@kfupm.edu.sa",
   });
 
-  const navigate = useNavigate(); // Correct placement of useNavigate hook
-
-  const goToManageSecurity = () => {
-    navigate("/manage-security"); // Navigate to the "Manage Security" page
-  };
-
+  const navigate = useNavigate();
   const [editing, setEditing] = useState({});
   const [tempValues, setTempValues] = useState({ ...admin });
   const [profileImage, setProfileImage] = useState(null);
@@ -50,8 +50,8 @@ export default function AdminProfilePage() {
   };
 
   const triggerFileInput = () => fileInputRef.current.click();
-
   const handleBack = () => window.history.back();
+  const goToManageSecurity = () => navigate("/manage-security");
 
   const EditableField = ({ field, label }) => (
     <div>
@@ -118,7 +118,7 @@ export default function AdminProfilePage() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
         <div className="bg-white shadow rounded-lg overflow-hidden">
           <div className="p-6 border-b border-gray-200">
             <div className="flex flex-col items-center justify-center">
@@ -153,24 +153,34 @@ export default function AdminProfilePage() {
             </div>
           </div>
 
-          <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-4">
-              <EditableField field="fullName" label="Full Name" />
-              <EditableField field="lastActivity" label="Last Activity" />
-              <EditableField field="email" label="Email" />
-            </div>
-            <div className="space-y-4">
-              <EditableField field="lastApprove" label="Last Approve" />
-              <EditableField field="lastAssigned" label="Last Assigned" />
-              <div>
-                <label className="text-sm font-medium text-gray-500 mb-1 block">Security</label>
-                <button
-                  onClick={goToManageSecurity} // Call goToManageSecurity on click
-                  className="text-sm text-white bg-blue-600 px-4 py-1 rounded hover:bg-blue-700"
-                >
-                  Manage Security
-                </button>
-              </div>
+          <div className="p-6 space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <FieldBox>
+                <EditableField field="fullName" label="Full Name" />
+              </FieldBox>
+              <FieldBox>
+                <EditableField field="lastApprove" label="Last Approve" />
+              </FieldBox>
+              <FieldBox>
+                <EditableField field="lastActivity" label="Last Activity" />
+              </FieldBox>
+              <FieldBox>
+                <EditableField field="lastAssigned" label="Last Assigned" />
+              </FieldBox>
+              <FieldBox>
+                <EditableField field="email" label="Email" />
+              </FieldBox>
+              <FieldBox>
+                <div>
+                  <label className="text-sm font-medium text-gray-500 mb-1 block">Security</label>
+                  <button
+                    onClick={goToManageSecurity}
+                    className="text-sm text-white bg-blue-600 px-4 py-1 rounded hover:bg-blue-700"
+                  >
+                    Manage Security
+                  </button>
+                </div>
+              </FieldBox>
             </div>
           </div>
         </div>
