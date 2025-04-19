@@ -11,25 +11,47 @@ export default function ManageAppointments() {
   const [searchValue, setSearchValue] = useState("");
   const sidebarRef = useRef(null);
 
-  const [profileImage, setProfileImage] = useState(() =>
-    localStorage.getItem("therapistProfileImage") || null
+  const [profileImage, setProfileImage] = useState(
+    () => localStorage.getItem("therapistProfileImage") || null
+
   );
 
   const [selectedDate, setSelectedDate] = useState("2025-08-22");
 
   const [appointments, setAppointments] = useState([
-    { time: "08:00 - 09:00", status: "unavailable", patient: "", editing: false },
+    {
+      time: "08:00 - 09:00",
+      status: "unavailable",
+      patient: "",
+      editing: false,
+    },
     { time: "09:00 - 10:00", status: "available", patient: "", editing: false },
-    { time: "10:00 - 11:00", status: "booked", patient: "Ali Mohammed", editing: false },
+    {
+      time: "10:00 - 11:00",
+      status: "booked",
+      patient: "Ali Mohammed",
+      editing: false,
+    },
     { time: "11:00 - 12:00", status: "available", patient: "", editing: false },
     { time: "13:00 - 14:00", status: "available", patient: "", editing: false },
     { time: "14:00 - 15:00", status: "available", patient: "", editing: false },
-    { time: "15:00 - 16:00", status: "booked", patient: "Fatimah S.", editing: false },
+    {
+      time: "15:00 - 16:00",
+      status: "booked",
+      patient: "Fatimah S.",
+      editing: false,
+    },
+
   ]);
 
   useEffect(() => {
     function handleClickOutside(e) {
-      if (sidebarOpen && sidebarRef.current && !sidebarRef.current.contains(e.target)) {
+      if (
+        sidebarOpen &&
+        sidebarRef.current &&
+        !sidebarRef.current.contains(e.target)
+      ) {
+
         setSidebarOpen(false);
       }
     }
@@ -89,7 +111,11 @@ export default function ManageAppointments() {
       >
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-semibold">Search Appointments</h2>
-          <button onClick={() => setSidebarOpen(false)} className="text-gray-400 hover:text-gray-700">
+          <button
+            onClick={() => setSidebarOpen(false)}
+            className="text-gray-400 hover:text-gray-700"
+          >
+
             <X className="h-5 w-5" />
           </button>
         </div>
@@ -126,7 +152,11 @@ export default function ManageAppointments() {
             <ArrowLeft className="h-5 w-5 mr-2" />
             <span className="text-sm">back</span>
           </button>
-          <button onClick={() => setSidebarOpen(true)} className="text-gray-500">
+          <button
+            onClick={() => setSidebarOpen(true)}
+            className="text-gray-500"
+          >
+
             <Menu className="h-6 w-6" />
           </button>
         </div>
@@ -134,13 +164,21 @@ export default function ManageAppointments() {
 
       {/* Main */}
       <main className="max-w-4xl mx-auto px-4 py-8">
-        <h2 className="text-2xl font-semibold mb-4 text-center">Appointments</h2>
+        <h2 className="text-2xl font-semibold mb-4 text-center">
+          Appointments
+        </h2>
+
 
         {/* Profile Image */}
         <div className="flex justify-center mb-4">
           <div className="w-24 h-24 rounded-full border overflow-hidden bg-gray-200 flex items-center justify-center">
             {profileImage ? (
-              <img src={profileImage} alt="Therapist" className="w-full h-full object-cover" />
+              <img
+                src={profileImage}
+                alt="Therapist"
+                className="w-full h-full object-cover"
+              />
+
             ) : (
               <User className="h-10 w-10 text-gray-400" />
             )}

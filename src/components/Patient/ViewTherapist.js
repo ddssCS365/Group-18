@@ -1,10 +1,8 @@
-// src/components/Therapist/ViewPatients.js
-
 import { useState, useRef, useEffect } from "react";
 import { ArrowLeft, Menu, User, X, Calendar, Phone } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-export default function ViewPatients() {
+export default function ViewTherapist() {
   const navigate = useNavigate();
   const sidebarRef = useRef(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -18,7 +16,6 @@ export default function ViewPatients() {
         sidebarRef.current &&
         !sidebarRef.current.contains(e.target)
       ) {
-
         setSidebarOpen(false);
       }
     };
@@ -27,12 +24,7 @@ export default function ViewPatients() {
   }, [sidebarOpen]);
 
   const handleSearch = () => {
-    if (searchType === "Date") {
-      navigate("/therapist/appointments");
-    } else if (searchType === "Patient Name") {
-      navigate("/therapist/patients");
-    }
-    setSidebarOpen(false);
+    navigate("/patient/AppointmentBooking");
   };
 
   return (
@@ -45,35 +37,19 @@ export default function ViewPatients() {
         }`}
       >
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-semibold">Search Appointments</h2>
+          <h2 className="text-lg font-semibold">Book Appointments</h2>
           <button
             onClick={() => setSidebarOpen(false)}
             className="text-gray-400 hover:text-gray-700"
           >
-
             <X className="h-5 w-5" />
           </button>
         </div>
-        <select
-          value={searchType}
-          onChange={(e) => setSearchType(e.target.value)}
-          className="w-full mb-3 p-2 border rounded text-sm"
-        >
-          <option>Date</option>
-          <option>Patient Name</option>
-        </select>
-        <input
-          type="text"
-          placeholder={`Enter ${searchType.toLowerCase()}`}
-          value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
-          className="w-full mb-3 p-2 border rounded text-sm"
-        />
         <button
           onClick={handleSearch}
           className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 text-sm"
         >
-          Search
+          Book
         </button>
       </div>
 
@@ -81,7 +57,7 @@ export default function ViewPatients() {
       <header className="bg-white shadow">
         <div className="max-w-6xl mx-auto px-4 py-4 sm:px-6 flex justify-between items-center">
           <button
-            onClick={() => navigate("/therapist")}
+            onClick={() => window.history.back()}
             className="flex items-center text-gray-500 hover:text-gray-700"
           >
             <ArrowLeft className="h-5 w-5 mr-2" />
@@ -91,7 +67,6 @@ export default function ViewPatients() {
             onClick={() => setSidebarOpen(true)}
             className="text-gray-500"
           >
-
             <Menu className="h-6 w-6" />
           </button>
         </div>
@@ -121,15 +96,13 @@ export default function ViewPatients() {
                   <span className="w-32 text-sm text-gray-500">
                     Date of Birth:
                   </span>
-
                   <span className="text-base font-semibold">22/9/1993</span>
                 </div>
                 <div className="flex items-center">
                   <span className="w-32 text-sm text-gray-500">Email:</span>
                   <span className="text-base font-semibold">
-                    ddss4038@gmail.com
+                    baselzsa@gmail.com
                   </span>
-
                 </div>
               </div>
 
@@ -139,10 +112,9 @@ export default function ViewPatients() {
                   <span className="w-32 text-sm text-gray-500">
                     Next Appointment:
                   </span>
-
                   <span className="text-base font-semibold flex items-center gap-2">
                     <Calendar className="h-4 w-4 text-gray-400" />
-                    22/8/2025
+                    4/19/2025
                   </span>
                 </div>
                 <div className="flex items-center">
@@ -158,7 +130,7 @@ export default function ViewPatients() {
             {/* Message Button */}
             <div className="mt-8 text-center">
               <button
-                onClick={() => navigate("/therapist/message")}
+                onClick={() => navigate("message-therapist")}
                 className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
               >
                 Message

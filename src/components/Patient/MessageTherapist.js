@@ -1,19 +1,16 @@
-// src/components/Therapist/MessagePatient.js
-
 import { useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-export default function MessagePatient() {
+export default function MessageTherapist() {
   const navigate = useNavigate();
   const [messages, setMessages] = useState([
-    { text: "Hi Ahmed, how are you feeling today?", sender: "therapist" },
-    { text: "Hi doctor, I’m feeling better, thank you!", sender: "patient" },
+    { text: "Hi Ahmed, how are you feeling today?", sender: "patient" },
+    { text: "Hi doctor, I’m feeling better, thank you!", sender: "therapist" },
     {
       text: "Great to hear! Let me know if anything comes up.",
-      sender: "therapist",
+      sender: "patient",
     },
-
   ]);
   const [newMessage, setNewMessage] = useState("");
 
@@ -28,7 +25,7 @@ export default function MessagePatient() {
       {/* Header */}
       <header className="bg-white shadow p-4 flex items-center">
         <button
-          onClick={() => navigate("/therapist/patients")}
+          onClick={() => window.history.back()}
           className="text-gray-500 hover:text-gray-700 mr-2"
         >
           <ArrowLeft className="h-5 w-5" />
