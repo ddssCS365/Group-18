@@ -18,6 +18,7 @@ export default function ViewPatients() {
         sidebarRef.current &&
         !sidebarRef.current.contains(e.target)
       ) {
+
         setSidebarOpen(false);
       }
     };
@@ -49,6 +50,7 @@ export default function ViewPatients() {
             onClick={() => setSidebarOpen(false)}
             className="text-gray-400 hover:text-gray-700"
           >
+
             <X className="h-5 w-5" />
           </button>
         </div>
@@ -89,6 +91,7 @@ export default function ViewPatients() {
             onClick={() => setSidebarOpen(true)}
             className="text-gray-500"
           >
+
             <Menu className="h-6 w-6" />
           </button>
         </div>
@@ -118,6 +121,7 @@ export default function ViewPatients() {
                   <span className="w-32 text-sm text-gray-500">
                     Date of Birth:
                   </span>
+
                   <span className="text-base font-semibold">22/9/1993</span>
                 </div>
                 <div className="flex items-center">
@@ -125,6 +129,7 @@ export default function ViewPatients() {
                   <span className="text-base font-semibold">
                     ddss4038@gmail.com
                   </span>
+
                 </div>
               </div>
 
@@ -134,6 +139,7 @@ export default function ViewPatients() {
                   <span className="w-32 text-sm text-gray-500">
                     Next Appointment:
                   </span>
+
                   <span className="text-base font-semibold flex items-center gap-2">
                     <Calendar className="h-4 w-4 text-gray-400" />
                     22/8/2025

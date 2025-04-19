@@ -10,6 +10,7 @@ export default function SearchResults() {
         <p className="text-gray-600">
           This is a placeholder for filtered appointment results.
         </p>
+
       </div>
     </div>
   );

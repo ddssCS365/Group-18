@@ -25,6 +25,7 @@ function EditableField({
   onCancel,
   onChange,
 }) {
+
   return (
     <div className="flex items-center">
       <span className="w-32 text-sm text-gray-500">{label}:</span>
@@ -138,6 +139,7 @@ export default function TherapistDashboard() {
         sidebarRef.current &&
         !sidebarRef.current.contains(e.target)
       ) {
+
         setSidebarOpen(false);
       }
     };
@@ -160,6 +162,7 @@ export default function TherapistDashboard() {
             onClick={() => setSidebarOpen(false)}
             className="text-gray-400 hover:text-gray-700"
           >
+
             <X className="h-5 w-5" />
           </button>
         </div>
@@ -200,6 +203,7 @@ export default function TherapistDashboard() {
             onClick={() => setSidebarOpen(!sidebarOpen)}
             className="text-gray-500"
           >
+
             <Menu className="h-6 w-6" />
           </button>
         </div>
@@ -221,6 +225,7 @@ export default function TherapistDashboard() {
                     alt="Profile"
                     className="w-full h-full object-cover"
                   />
+
                 ) : (
                   <User className="h-12 w-12 text-gray-400" />
                 )}
@@ -240,6 +245,7 @@ export default function TherapistDashboard() {
                   className="text-sm text-blue-600 cursor-pointer"
                   onClick={triggerFileInput}
                 >
+
                   Click to upload photo
                 </p>
                 {profileImage && (
@@ -275,6 +281,7 @@ export default function TherapistDashboard() {
                   <span className="w-32 text-sm text-gray-500">
                     Specialization:
                   </span>
+
                   <span className="text-base">{therapist.specialization}</span>
                 </div>
                 <EditableField
@@ -296,6 +303,7 @@ export default function TherapistDashboard() {
                   <span className="w-32 text-sm text-gray-500">
                     Next Appointment:
                   </span>
+
                   <span className="text-base flex items-center gap-2">
                     <Calendar className="h-4 w-4 text-gray-400" />
                     {therapist.nextAppointment}
@@ -311,6 +319,7 @@ export default function TherapistDashboard() {
                   <span className="w-32 text-sm text-gray-500">
                     Next Patient:
                   </span>
+
                   <span className="text-base flex items-center gap-2">
                     <ClipboardList className="h-4 w-4 text-gray-400" />
                     {therapist.nextPatient}
@@ -326,6 +335,7 @@ export default function TherapistDashboard() {
                   <span className="w-32 text-sm text-gray-500">
                     Date of Join:
                   </span>
+
                   <span className="text-base">{therapist.dateOfJoin}</span>
                 </div>
               </div>

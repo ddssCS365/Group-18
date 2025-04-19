@@ -52,6 +52,7 @@ function App() {
         <Route path="/therapist/search-results" element={<SearchResults />} />
         <Route path="/therapist/message" element={<MessagePatient />} />{" "}
         {/* ✅ New route */}
+
         <Route path="/patient" element={<PatientDashboard />} />
         <Route
           path="/patient/AppointmentBooking"

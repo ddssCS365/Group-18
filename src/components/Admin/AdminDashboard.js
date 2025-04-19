@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import { Save, X, ArrowLeft, Upload } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
+
 export default function AdminProfilePage() {
   const [admin, setAdmin] = useState({
     fullName: "Hussain Alnasser",
@@ -19,6 +20,7 @@ export default function AdminProfilePage() {
   const goToQuick = () => {
     navigate("quick-action"); // Navigate to the "Manage Security" page
   };
+
 
   const [editing, setEditing] = useState({});
   const [tempValues, setTempValues] = useState({ ...admin });
@@ -55,6 +57,7 @@ export default function AdminProfilePage() {
   const triggerFileInput = () => fileInputRef.current.click();
 
   const handleBack = () => window.history.back();
+
 
   const EditableField = ({ field, label }) => (
     <div>
@@ -114,6 +117,7 @@ export default function AdminProfilePage() {
             <span className="text-sm">back</span>
           </button>
           <button className="text-gray-500">
+
             <svg
               className="h-6 w-6"
               fill="none"
@@ -126,12 +130,14 @@ export default function AdminProfilePage() {
                 strokeWidth={2}
                 d="M4 6h16M4 12h16M4 18h16"
               />
+
             </svg>
           </button>
         </div>
       </header>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+
         <div className="bg-white shadow rounded-lg overflow-hidden">
           <div className="p-6 border-b border-gray-200">
             <div className="flex flex-col items-center justify-center">
@@ -145,6 +151,7 @@ export default function AdminProfilePage() {
                     alt="Profile"
                     className="w-full h-full object-cover"
                   />
+
                 ) : (
                   <svg
                     className="h-12 w-12 text-gray-400"
@@ -158,6 +165,7 @@ export default function AdminProfilePage() {
                       strokeWidth={1}
                       d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
                     />
+
                   </svg>
                 )}
                 <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
@@ -207,6 +215,7 @@ export default function AdminProfilePage() {
                   Manage Security
                 </button>
               </div>
+
             </div>
           </div>
         </div>

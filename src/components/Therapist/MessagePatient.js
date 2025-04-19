@@ -13,6 +13,7 @@ export default function MessagePatient() {
       text: "Great to hear! Let me know if anything comes up.",
       sender: "therapist",
     },
+
   ]);
   const [newMessage, setNewMessage] = useState("");
 

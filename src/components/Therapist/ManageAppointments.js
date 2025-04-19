@@ -13,6 +13,7 @@ export default function ManageAppointments() {
 
   const [profileImage, setProfileImage] = useState(
     () => localStorage.getItem("therapistProfileImage") || null
+
   );
 
   const [selectedDate, setSelectedDate] = useState("2025-08-22");
@@ -40,6 +41,7 @@ export default function ManageAppointments() {
       patient: "Fatimah S.",
       editing: false,
     },
+
   ]);
 
   useEffect(() => {
@@ -49,6 +51,7 @@ export default function ManageAppointments() {
         sidebarRef.current &&
         !sidebarRef.current.contains(e.target)
       ) {
+
         setSidebarOpen(false);
       }
     }
@@ -112,6 +115,7 @@ export default function ManageAppointments() {
             onClick={() => setSidebarOpen(false)}
             className="text-gray-400 hover:text-gray-700"
           >
+
             <X className="h-5 w-5" />
           </button>
         </div>
@@ -152,6 +156,7 @@ export default function ManageAppointments() {
             onClick={() => setSidebarOpen(true)}
             className="text-gray-500"
           >
+
             <Menu className="h-6 w-6" />
           </button>
         </div>
@@ -163,6 +168,7 @@ export default function ManageAppointments() {
           Appointments
         </h2>
 
+
         {/* Profile Image */}
         <div className="flex justify-center mb-4">
           <div className="w-24 h-24 rounded-full border overflow-hidden bg-gray-200 flex items-center justify-center">
@@ -172,6 +178,7 @@ export default function ManageAppointments() {
                 alt="Therapist"
                 className="w-full h-full object-cover"
               />
+
             ) : (
               <User className="h-10 w-10 text-gray-400" />
             )}
