@@ -1,0 +1,313 @@
+/* styles.css */
+.booking-container {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  min-height: 100vh;
+  position: relative;
+  padding: 10px;
+}
+
+.header {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  padding: 20px 0;
+  position: relative;
+}
+
+.header .icon-left,
+.header .icon-right {
+  position: absolute;
+  top: 20px;
+  font-size: 24px;
+  color: black;
+  cursor: pointer;
+}
+
+.header .icon-left {
+  left: 20px;
+}
+
+.header .icon-right {
+  right: 20px;
+}
+
+.main-content {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+  flex-wrap: wrap;
+}
+
+.form-container {
+  flex: 1;
+  max-width: 300px;
+}
+
+.form-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  font-size: 14px;
+  color: #333;
+}
+
+.form-group input,
+.form-group select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 60%;
+  font-size: 14px;
+}
+
+.form-group select {
+  width: 65%;
+}
+
+.view-doctor-button {
+  background-color: #d3d3d3;
+  border: 1px solid #ccc;
+  padding: 8px;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  margin-bottom: 15px;
+}
+
+.view-doctor-button:disabled {
+  background-color: #e0e0e0;
+  cursor: not-allowed;
+}
+
+.view-doctor-button:hover:not(:disabled) {
+  background-color: #c0c0c0;
+}
+
+.book-button {
+  background-color: #e0e0e0;
+  border: 1px solid #ccc;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: block;
+  margin: 20px auto;
+  transition: background-color 0.3s;
+}
+
+.book-button:hover {
+  background-color: #d0d0d0;
+}
+
+.current-appointment {
+  flex: 1;
+  max-width: 300px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 4px;
+}
+
+.current-appointment h3 {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.current-appointment p {
+  font-size: 14px;
+  color: #333;
+  margin: 5px 0;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.confirmation-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.confirmation-label {
+  font-size: 16px;
+  font-weight: normal;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.confirmation-box {
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  padding: 20px;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.confirmation-box h2 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.confirmation-box p {
+  font-size: 14px;
+  color: #333;
+  margin: 5px 0;
+}
+
+.confirmation-box .highlight {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.confirmation-box button {
+  background-color: #e0e0e0;
+  border: 1px solid #ccc;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s;
+}
+
+.confirmation-box button:hover {
+  background-color: #d0d0d0;
+}
+
+.doctor-profile-box {
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  padding: 20px;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.doctor-profile-box h2 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.doctor-profile-box p {
+  font-size: 14px;
+  color: #333;
+  margin: 5px 0;
+}
+
+.doctor-profile-box button {
+  background-color: #e0e0e0;
+  border: 1px solid #ccc;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s;
+}
+
+.doctor-profile-box button:hover {
+  background-color: #d0d0d0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .header {
+    font-size: 16px;
+    padding: 15px 0;
+  }
+
+  .header .icon-left,
+  .header .icon-right {
+    font-size: 20px;
+    top: 15px;
+  }
+
+  .main-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .form-container,
+  .current-appointment {
+    max-width: 100%;
+  }
+
+  .form-group {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .form-group label {
+    margin-bottom: 5px;
+  }
+
+  .form-group input,
+  .form-group select {
+    width: 100%;
+  }
+
+  .view-doctor-button,
+  .book-button {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+
+  .confirmation-box,
+  .doctor-profile-box {
+    width: 90%;
+    padding: 15px;
+  }
+
+  .confirmation-box h2,
+  .doctor-profile-box h2 {
+    font-size: 16px;
+  }
+
+  .confirmation-box p,
+  .doctor-profile-box p {
+    font-size: 12px;
+  }
+
+  .confirmation-box .highlight {
+    font-size: 14px;
+  }
+
+  .confirmation-box button,
+  .doctor-profile-box button {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+
+  .confirmation-label {
+    font-size: 14px;
+  }
+}

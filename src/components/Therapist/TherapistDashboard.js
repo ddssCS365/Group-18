@@ -14,7 +14,18 @@ import {
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-function EditableField({ field, label, value, editing, tempValue, onEdit, onSave, onCancel, onChange }) {
+function EditableField({
+  field,
+  label,
+  value,
+  editing,
+  tempValue,
+  onEdit,
+  onSave,
+  onCancel,
+  onChange,
+}) {
+
   return (
     <div className="flex items-center">
       <span className="w-32 text-sm text-gray-500">{label}:</span>
@@ -123,7 +134,12 @@ export default function TherapistDashboard() {
 
   useEffect(() => {
     const handleClickOutside = (e) => {
-      if (sidebarOpen && sidebarRef.current && !sidebarRef.current.contains(e.target)) {
+      if (
+        sidebarOpen &&
+        sidebarRef.current &&
+        !sidebarRef.current.contains(e.target)
+      ) {
+
         setSidebarOpen(false);
       }
     };
@@ -142,7 +158,11 @@ export default function TherapistDashboard() {
       >
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-semibold">Search Appointments</h2>
-          <button onClick={() => setSidebarOpen(false)} className="text-gray-400 hover:text-gray-700">
+          <button
+            onClick={() => setSidebarOpen(false)}
+            className="text-gray-400 hover:text-gray-700"
+          >
+
             <X className="h-5 w-5" />
           </button>
         </div>
@@ -179,7 +199,11 @@ export default function TherapistDashboard() {
             <ArrowLeft className="h-5 w-5 mr-2" />
             <span className="text-sm">back</span>
           </button>
-          <button onClick={() => setSidebarOpen(!sidebarOpen)} className="text-gray-500">
+          <button
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+            className="text-gray-500"
+          >
+
             <Menu className="h-6 w-6" />
           </button>
         </div>
@@ -196,7 +220,12 @@ export default function TherapistDashboard() {
                 onClick={triggerFileInput}
               >
                 {profileImage ? (
-                  <img src={profileImage} alt="Profile" className="w-full h-full object-cover" />
+                  <img
+                    src={profileImage}
+                    alt="Profile"
+                    className="w-full h-full object-cover"
+                  />
+
                 ) : (
                   <User className="h-12 w-12 text-gray-400" />
                 )}
@@ -212,7 +241,11 @@ export default function TherapistDashboard() {
                 />
               </div>
               <div className="flex gap-4 mt-2">
-                <p className="text-sm text-blue-600 cursor-pointer" onClick={triggerFileInput}>
+                <p
+                  className="text-sm text-blue-600 cursor-pointer"
+                  onClick={triggerFileInput}
+                >
+
                   Click to upload photo
                 </p>
                 {profileImage && (
@@ -245,7 +278,10 @@ export default function TherapistDashboard() {
                   onChange={(value) => handleChange("fullName", value)}
                 />
                 <div className="flex items-center">
-                  <span className="w-32 text-sm text-gray-500">Specialization:</span>
+                  <span className="w-32 text-sm text-gray-500">
+                    Specialization:
+                  </span>
+
                   <span className="text-base">{therapist.specialization}</span>
                 </div>
                 <EditableField
@@ -264,7 +300,10 @@ export default function TherapistDashboard() {
               {/* Right */}
               <div className="space-y-4">
                 <div className="flex items-center">
-                  <span className="w-32 text-sm text-gray-500">Next Appointment:</span>
+                  <span className="w-32 text-sm text-gray-500">
+                    Next Appointment:
+                  </span>
+
                   <span className="text-base flex items-center gap-2">
                     <Calendar className="h-4 w-4 text-gray-400" />
                     {therapist.nextAppointment}
@@ -277,7 +316,10 @@ export default function TherapistDashboard() {
                   </span>
                 </div>
                 <div className="flex items-center">
-                  <span className="w-32 text-sm text-gray-500">Next Patient:</span>
+                  <span className="w-32 text-sm text-gray-500">
+                    Next Patient:
+                  </span>
+
                   <span className="text-base flex items-center gap-2">
                     <ClipboardList className="h-4 w-4 text-gray-400" />
                     {therapist.nextPatient}
@@ -290,7 +332,10 @@ export default function TherapistDashboard() {
                   </span>
                 </div>
                 <div className="flex items-center">
-                  <span className="w-32 text-sm text-gray-500">Date of Join:</span>
+                  <span className="w-32 text-sm text-gray-500">
+                    Date of Join:
+                  </span>
+
                   <span className="text-base">{therapist.dateOfJoin}</span>
                 </div>
               </div>
