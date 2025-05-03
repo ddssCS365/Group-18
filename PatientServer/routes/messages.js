@@ -15,7 +15,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-// GET /api/messages/:userId1/:userId2
+// GET /api/messages/:userId1
 router.get("/:userId1/:userId2", async (req, res) => {
   try {
     const { userId1, userId2 } = req.params;

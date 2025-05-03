@@ -8,7 +8,7 @@ router.get("/:id", async (req, res) => {
   console.log("here " + req.params.id);
   try {
     const user = await User.findOne({ fullName: req.params.id });
-    console.log(user.nextAppointment);
+    console.log(user.id);
     if (!user) return res.status(404).json({ error: "User not found" });
     res.json(user).status(200);
   } catch (err) {
