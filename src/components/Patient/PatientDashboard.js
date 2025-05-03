@@ -155,13 +155,14 @@ export default function TherapistDashboard() {
         }
       );
       const data = await response.json();
+      console.log(data);
       setTherapist({
         fullName: data.fullName,
         phone: data.phone,
         Email: data.email,
-        // nextAppointment: data.nextAppointment,
-        //nextPatient: data.nextPatient,
-        //dateOfBirth: data.dateOfBirth,
+        nextAppointment: data.nextAppointment,
+        nextPatient: data.therapist,
+        dateOfBirth: data.dateOfBirth,
       });
     })();
   }, []);

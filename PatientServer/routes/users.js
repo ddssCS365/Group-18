@@ -5,10 +5,10 @@ const User = require("../models/User");
 
 // GET /api/users/:id
 router.get("/:id", async (req, res) => {
-  console.log("here" + req.params.id);
+  console.log("here " + req.params.id);
   try {
     const user = await User.findOne({ fullName: req.params.id });
-    console.log(user);
+    console.log(user.nextAppointment);
     if (!user) return res.status(404).json({ error: "User not found" });
     res.json(user).status(200);
   } catch (err) {
