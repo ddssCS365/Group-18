@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { ArrowLeft, Menu, User, X, Calendar, Phone } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import useFullname from "../useFullname";
 
 export default function ViewTherapist() {
   const navigate = useNavigate();
@@ -8,6 +9,11 @@ export default function ViewTherapist() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [searchType, setSearchType] = useState("Date");
   const [searchValue, setSearchValue] = useState("");
+  const [fullName, setFullName] = useFullname("fullName", "");
+  const [therapist, setTherapist] = useState({
+    nextAppointment: "4/19/2025",
+    nextPatient: "dr.majid bin afif",
+  });
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -26,7 +32,24 @@ export default function ViewTherapist() {
   const handleSearch = () => {
     navigate("/patient/AppointmentBooking");
   };
-
+  useEffect(() => {
+    (async () => {
+      const response = await fetch(
+        `http://localhost:5000/api/users/${fullName}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data = await response.json();
+      setTherapist({
+        nextAppointment: data.nextAppointment,
+        nextPatient: data.therapist,
+      });
+    })();
+  }, []);
   return (
     <div className="min-h-screen bg-gray-50 relative">
       {/* Sidebar Drawer */}
@@ -90,7 +113,9 @@ export default function ViewTherapist() {
               <div className="space-y-4">
                 <div className="flex items-center">
                   <span className="w-32 text-sm text-gray-500">Full Name:</span>
-                  <span className="text-base font-semibold">Ahmed Naji</span>
+                  <span className="text-base font-semibold">
+                    {therapist.nextPatient}
+                  </span>
                 </div>
                 <div className="flex items-center">
                   <span className="w-32 text-sm text-gray-500">
@@ -114,7 +139,7 @@ export default function ViewTherapist() {
                   </span>
                   <span className="text-base font-semibold flex items-center gap-2">
                     <Calendar className="h-4 w-4 text-gray-400" />
-                    4/19/2025
+                    {therapist.nextAppointment}
                   </span>
                 </div>
                 <div className="flex items-center">
