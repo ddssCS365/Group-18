@@ -3,11 +3,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import loginImage from "../assets/Kfupm.png";
+import useFullname from "./useFullname";
 
 export default function Login() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [fullName, setFullName] = useFullname("fullName", "");
 
   const handleLogin = () => {
     if (username.toLowerCase().includes("admin")) {
@@ -16,6 +18,7 @@ export default function Login() {
       navigate("/therapist");
     } else {
       navigate("/patient");
+      setFullName(username);
     }
   };
 
