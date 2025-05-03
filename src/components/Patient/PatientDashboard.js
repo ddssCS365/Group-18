@@ -155,7 +155,6 @@ export default function TherapistDashboard() {
         }
       );
       const data = await response.json();
-      console.log(data);
       setTherapist({
         fullName: data.fullName,
         phone: data.phone,
