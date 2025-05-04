@@ -1,55 +1,38 @@
-// src/components/Admin/TherapistService.js
+const API_URL = 'http://localhost:5000/api/therapists';
 
-// Load from localStorage or initialize
-const loadTherapists = () => {
-  const saved = localStorage.getItem("therapists");
-  return saved
-    ? JSON.parse(saved)
-    : [
-        {
-          id: 1,
-          name: "Dr. Smith",
-          email: "smith@example.com",
-          specialization: "Psychology",
-        },
-      ];
-};
-
-let mockTherapists = loadTherapists();
-
-// Save to localStorage
-const saveTherapists = (data) => {
-  localStorage.setItem("therapists", JSON.stringify(data));
-};
-
-// GET all therapists
 export const getTherapists = async () => {
-  return [...mockTherapists];
+    const response = await fetch(API_URL);
+    return await response.json();
 };
 
-// GET single therapist
 export const getTherapistById = async (id) => {
-  return mockTherapists.find((t) => t.id === parseInt(id));
+    const response = await fetch(`${API_URL}/${id}`);
+    return await response.json();
 };
 
-// CREATE new therapist
 export const createTherapist = async (data) => {
-  const newTherapist = { id: Date.now(), ...data };
-  mockTherapists.push(newTherapist);
-  saveTherapists(mockTherapists);
-  return newTherapist;
+    const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    });
+    return await response.json();
 };
 
-// UPDATE therapist
 export const updateTherapist = async (id, data) => {
-  mockTherapists = mockTherapists.map((t) =>
-    t.id === parseInt(id) ? { ...t, ...data } : t
-  );
-  saveTherapists(mockTherapists);
+    await fetch(`${API_URL}/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    });
 };
 
-// DELETE therapist
 export const deleteTherapist = async (id) => {
-  mockTherapists = mockTherapists.filter((t) => t.id !== parseInt(id));
-  saveTherapists(mockTherapists);
+    await fetch(`${API_URL}/${id}`, {
+        method: 'DELETE',
+    });
 };
