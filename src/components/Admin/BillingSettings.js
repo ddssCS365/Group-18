@@ -1,10 +1,10 @@
 // src/components/Admin/BillingSettings.js
-import React, { useState, useEffect } from "react";
-import { getBillingSettings, updateBillingSettings } from "./BillingService";
+import React, { useState, useEffect } from 'react';
+import { getBillingSettings, updateBillingSettings } from './BillingService';
 export default function BillingSettings() {
   const [settings, setSettings] = useState({});
   const [isEditing, setIsEditing] = useState(false);
-  const [successMessage, setSuccessMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
     const loadSettings = async () => {
@@ -16,14 +16,14 @@ export default function BillingSettings() {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setSettings((prev) => ({
+    setSettings(prev => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: type === 'checkbox' ? checked : value
     }));
   };
 
   const handlePaymentMethodChange = (method, isChecked) => {
-    setSettings((prev) => {
+    setSettings(prev => {
       const methods = [...prev.paymentMethods];
       if (isChecked && !methods.includes(method)) {
         methods.push(method);
@@ -39,18 +39,18 @@ export default function BillingSettings() {
     e.preventDefault();
     try {
       await updateBillingSettings(settings);
-      setSuccessMessage("Settings saved successfully!");
+      setSuccessMessage('Settings saved successfully!');
       setIsEditing(false);
-      setTimeout(() => setSuccessMessage(""), 3000);
+      setTimeout(() => setSuccessMessage(''), 3000);
     } catch (error) {
-      console.error("Failed to save settings:", error);
+      console.error('Failed to save settings:', error);
     }
   };
 
   return (
     <div className="billing-settings">
       <h2>Payment & Billing Configuration</h2>
-
+      
       {successMessage && (
         <div className="alert alert-success">{successMessage}</div>
       )}
@@ -79,9 +79,12 @@ export default function BillingSettings() {
           </div>
           <div className="setting-item">
             <label>Payment Methods:</label>
-            <span>{settings.paymentMethods?.join(", ") || "None"}</span>
+            <span>{settings.paymentMethods?.join(', ') || 'None'}</span>
           </div>
-          <button onClick={() => setIsEditing(true)} className="edit-btn">
+          <button 
+            onClick={() => setIsEditing(true)}
+            className="edit-btn"
+          >
             Edit Settings
           </button>
         </div>
@@ -92,7 +95,7 @@ export default function BillingSettings() {
             <input
               type="number"
               name="sessionRate"
-              value={settings.sessionRate || ""}
+              value={settings.sessionRate || ''}
               onChange={handleChange}
               min="0"
               step="0.01"
@@ -105,7 +108,7 @@ export default function BillingSettings() {
             <input
               type="number"
               name="cancellationFee"
-              value={settings.cancellationFee || ""}
+              value={settings.cancellationFee || ''}
               onChange={handleChange}
               min="0"
               step="0.01"
@@ -118,7 +121,7 @@ export default function BillingSettings() {
             <input
               type="number"
               name="taxRate"
-              value={settings.taxRate || ""}
+              value={settings.taxRate || ''}
               onChange={handleChange}
               min="0"
               max="100"
@@ -132,7 +135,7 @@ export default function BillingSettings() {
             <input
               type="number"
               name="lateFee"
-              value={settings.lateFee || ""}
+              value={settings.lateFee || ''}
               onChange={handleChange}
               min="0"
               step="0.01"
@@ -144,7 +147,7 @@ export default function BillingSettings() {
             <label>Billing Cycle:</label>
             <select
               name="billingCycle"
-              value={settings.billingCycle || ""}
+              value={settings.billingCycle || ''}
               onChange={handleChange}
               required
             >
@@ -161,59 +164,49 @@ export default function BillingSettings() {
               <label>
                 <input
                   type="checkbox"
-                  checked={
-                    settings.paymentMethods?.includes("ApplePay") || false
-                  }
-                  onChange={(e) =>
-                    handlePaymentMethodChange("ApplePay", e.target.checked)
-                  }
+                  checked={settings.paymentMethods?.includes('ApplePay') || false}
+                  onChange={(e) => handlePaymentMethodChange('ApplePay', e.target.checked)}
                 />
                 ApplePay
               </label>
               <label>
                 <input
                   type="checkbox"
-                  checked={settings.paymentMethods?.includes("Mada") || false}
-                  onChange={(e) =>
-                    handlePaymentMethodChange("Mada", e.target.checked)
-                  }
+                  checked={settings.paymentMethods?.includes('Mada') || false}
+                  onChange={(e) => handlePaymentMethodChange('Mada', e.target.checked)}
                 />
                 Mada
               </label>
               <label>
                 <input
                   type="checkbox"
-                  checked={
-                    settings.paymentMethods?.includes("Bank Transfer") || false
-                  }
-                  onChange={(e) =>
-                    handlePaymentMethodChange("Bank Transfer", e.target.checked)
-                  }
+                  checked={settings.paymentMethods?.includes('Bank Transfer') || false}
+                  onChange={(e) => handlePaymentMethodChange('Bank Transfer', e.target.checked)}
                 />
                 Bank Transfer
               </label>
 
-              <label>
-                <input
-                  type="checkbox"
-                  checked={settings.paymentMethods?.includes("Tabby") || false}
-                  onChange={(e) =>
-                    handlePaymentMethodChange("Tabby", e.target.checked)
-                  }
-                />
-                Tabby
-              </label>
 
               <label>
-                <input
-                  type="checkbox"
-                  checked={settings.paymentMethods?.includes("Cash") || false}
-                  onChange={(e) =>
-                    handlePaymentMethodChange("Cash", e.target.checked)
-                  }
-                />
-                Cash
-              </label>
+                    <input
+                        type="checkbox"
+                        checked={settings.paymentMethods?.includes('Tabby') || false}
+                        onChange={(e) => handlePaymentMethodChange('Tabby', e.target.checked)}
+                    />
+                    Tabby
+                    </label>
+
+
+
+
+                    <label>
+                    <input
+                        type="checkbox"
+                        checked={settings.paymentMethods?.includes('Cash') || false}
+                        onChange={(e) => handlePaymentMethodChange('Cash', e.target.checked)}
+                    />
+                    Cash
+                    </label>
             </div>
           </div>
 
@@ -221,8 +214,8 @@ export default function BillingSettings() {
             <button type="submit" className="save-btn">
               Save Changes
             </button>
-            <button
-              type="button"
+            <button 
+              type="button" 
               onClick={() => setIsEditing(false)}
               className="cancel-btn"
             >
