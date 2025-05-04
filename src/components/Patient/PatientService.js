@@ -1,16 +1,16 @@
-const API_URL = 'http://localhost:5000/api/therapists';
+const API_URL = 'http://localhost:5001/api/patients';
 
-export const getTherapists = async () => {
+export const getPatients = async () => {
     const response = await fetch(API_URL);
     return await response.json();
 };
 
-export const getTherapistById = async (id) => {
+export const getPatientById = async (id) => {
     const response = await fetch(`${API_URL}/${id}`);
     return await response.json();
 };
 
-export const createTherapist = async (data) => {
+export const createPatient = async (data) => {
     const response = await fetch(API_URL, {
         method: 'POST',
         headers: {
@@ -21,7 +21,7 @@ export const createTherapist = async (data) => {
     return await response.json();
 };
 
-export const updateTherapist = async (id, data) => {
+export const updatePatient = async (id, data) => {
     await fetch(`${API_URL}/${id}`, {
         method: 'PUT',
         headers: {
@@ -31,7 +31,7 @@ export const updateTherapist = async (id, data) => {
     });
 };
 
-export const deleteTherapist = async (id) => {
+export const deletePatient = async (id) => {
     await fetch(`${API_URL}/${id}`, {
         method: 'DELETE',
     });

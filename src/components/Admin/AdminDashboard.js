@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { Save, X, ArrowLeft, Upload, Menu } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
@@ -20,8 +20,6 @@ export default function AdminProfilePage() {
 
   const [editing, setEditing] = useState({});
   const [tempValues, setTempValues] = useState({ ...admin });
-  const [profileImage, setProfileImage] = useState(null);
-  const fileInputRef = useRef(null);
 
   const handleEdit = (field) => {
     setTempValues((prev) => ({ ...prev, [field]: admin[field] }));
@@ -37,16 +35,6 @@ export default function AdminProfilePage() {
 
   const handleChange = (field, value) => setTempValues((prev) => ({ ...prev, [field]: value }));
 
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => setProfileImage(e.target.result);
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const triggerFileInput = () => fileInputRef.current.click();
 
   const handleBack = () => window.history.back();
 
@@ -119,17 +107,12 @@ export default function AdminProfilePage() {
             <div className="flex flex-col items-center">
               <div
                 className="w-32 h-32 bg-gray-200 rounded-full overflow-hidden border border-gray-300 cursor-pointer"
-                onClick={triggerFileInput}
               >
-                {profileImage ? (
-                  <img src={profileImage} alt="Profile" className="w-full h-full object-cover" />
-                ) : (
-                  <Upload className="h-12 w-12 text-gray-400 mx-auto my-10" />
-                )}
+                <Upload className="h-12 w-12 text-gray-400 mx-auto my-10" />
               </div>
-              <p className="mt-3 text-sm text-blue-600 cursor-pointer" onClick={triggerFileInput}>
-                Click to upload photo
-              </p>
+              <button className="mt-3 text-sm text-blue-600 cursor-pointer">
+                Add profile photo
+              </button>
             </div>
           </div>
 

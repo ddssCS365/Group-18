@@ -2,7 +2,6 @@
 
 import { useState, useRef, useEffect } from "react";
 import {
-  Mail,
   Calendar,
   ClipboardList,
   User,
@@ -14,6 +13,7 @@ import {
   Trash2,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import useFullname from "../useFullname";
 
 function EditableField({
   field,
@@ -71,11 +71,10 @@ export default function TherapistDashboard() {
   const navigate = useNavigate();
   const sidebarRef = useRef(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [searchType, setSearchType] = useState("Date");
-  const [searchValue, setSearchValue] = useState("");
+  const [fullName] = useFullname("fullName", "");
 
   const [therapist, setTherapist] = useState({
-    fullName: "Basel Alzahrani",
+    fullName: fullName,
     phone: "0553322112",
     Email: "s202112345@gmail.com",
     nextAppointment: "4/19/2025",
@@ -141,7 +140,28 @@ export default function TherapistDashboard() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [sidebarOpen]);
-
+  useEffect(() => {
+    (async () => {
+      const response = await fetch(
+        `http://localhost:5000/api/users/${fullName}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data = await response.json();
+      setTherapist({
+        fullName: data.fullName,
+        phone: data.phone,
+        Email: data.email,
+        nextAppointment: data.nextAppointment,
+        nextPatient: data.therapist,
+        dateOfBirth: data.dateOfBirth,
+      });
+    })();
+  }, [fullName]);
   return (
     <div className="min-h-screen bg-gray-50 relative">
       {/* Sidebar Drawer */}

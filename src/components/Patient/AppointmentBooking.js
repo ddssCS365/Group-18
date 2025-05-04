@@ -1,172 +1,163 @@
 import React, { useState } from "react";
+import { Calendar, Clock, ChevronRight, ArrowLeft, Menu } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
-const AppointmentBooking = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isDoctorProfileOpen, setIsDoctorProfileOpen] = useState(false); // State for doctor profile modal
-  const [appointmentDetails, setAppointmentDetails] = useState({
-    date: "2025-09-22",
-    time: "15:25",
-    doctor: "DR. Alnasser",
-  });
-
-  // State for form inputs
+export default function AppointmentBooking() {
+  const navigate = useNavigate();
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
   const [selectedDoctor, setSelectedDoctor] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDoctorProfileOpen, setIsDoctorProfileOpen] = useState(false);
 
   const doctorProfiles = {
-    "Dr. Mohammed": {
-      name: "Dr. Mohammed",
-      specialization: "Cardiology",
-      fees: "$150 per session",
+    "Dr. Alnasser": {
+      name: "Dr. Alnasser",
+      specialization: "General Medicine",
+      fees: "$100 per session",
     },
     "Dr. Ali": {
       name: "Dr. Ali",
       specialization: "Neurology",
       fees: "$200 per session",
     },
-    "Dr. Fatimah": {
-      name: "Dr. Fatimah",
-      specialization: "Pediatrics",
-      fees: "$120 per session",
-    },
   };
 
   const handleBooking = () => {
-    setAppointmentDetails({
-      date: selectedDate
-        ? new Date(selectedDate).toLocaleDateString("en-GB")
-        : "Not selected",
-      time: selectedTime || "Not selected",
-      doctor: selectedDoctor || "Not selected",
-    });
+    if (!selectedDoctor || !selectedDate || !selectedTime) return;
     setIsModalOpen(true);
   };
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleViewDoctorProfile = () => {
-    if (selectedDoctor) {
-      setIsDoctorProfileOpen(true);
-    }
-  };
-
-  const handleCloseDoctorProfile = () => {
-    setIsDoctorProfileOpen(false);
-  };
-
-  const handleBack = () => {
-    window.history.back();
-  };
-
   return (
-    <div style={{ padding: "20px", backgroundColor: "#f7f7f7", minHeight: "100vh" }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: "20px", fontWeight: "bold", padding: "15px", backgroundColor: "#ffffff", boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)" }}>
-        <span style={{ cursor: "pointer", fontSize: "20px" }} onClick={handleBack}>
-          ⬅
-        </span>
-        Manage booking an appointment for patient
-        <span style={{ cursor: "pointer", fontSize: "20px" }}>☰</span>
-      </div>
+    <div className="min-h-screen bg-[#f3efec]">
+      {/* Header */}
+      <header className="flex justify-between items-center px-4 py-4">
+        <button onClick={() => navigate(-1)} className="text-gray-700">
+          <ArrowLeft />
+        </button>
+        <h1 className="text-lg font-semibold text-gray-900">
+          Manage Booking an Appointment
+        </h1>
+        <Menu />
+      </header>
 
-      <div style={{ display: "flex", flexDirection: "column", gap: "20px", paddingTop: "20px" }}>
-        <div style={{ backgroundColor: "#fff", padding: "25px", borderRadius: "8px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)" }}>
-          <div style={{ marginBottom: "20px" }}>
-            <label>Select date</label>
-            <input
-              type="date"
-              value={selectedDate}
-              onChange={(e) => setSelectedDate(e.target.value)}
-              style={{ padding: "12px", borderRadius: "8px", border: "1px solid #ccc", width: "100%", fontSize: "14px", marginTop: "8px" }}
-            />
+      <main className="max-w-5xl mx-auto grid md:grid-cols-2 gap-6 px-4 py-6">
+        {/* Booking Form */}
+        <div className="bg-white rounded-xl shadow p-6 space-y-5">
+          <div>
+            <label className="block font-medium mb-1">Select Date</label>
+            <div className="flex items-center border rounded-lg px-3 py-2">
+              <Calendar className="text-gray-400 mr-2" />
+              <input
+                type="date"
+                className="flex-1 bg-transparent outline-none text-sm"
+                value={selectedDate}
+                onChange={(e) => setSelectedDate(e.target.value)}
+              />
+            </div>
           </div>
-          <div style={{ marginBottom: "20px" }}>
-            <label>Select doctor</label>
-            <select
-              value={selectedDoctor}
-              onChange={(e) => setSelectedDoctor(e.target.value)}
-              style={{ padding: "12px", borderRadius: "8px", border: "1px solid #ccc", width: "100%", fontSize: "14px", marginTop: "8px" }}
-            >
-              <option value="">Select a doctor</option>
-              <option value="Dr. Mohammed">Dr. Mohammed</option>
-              <option value="Dr. Ali">Dr. Ali</option>
-              <option value="Dr. Fatimah">Dr. Fatimah</option>
-            </select>
+
+          <div>
+            <label className="block font-medium mb-1">Select Doctor</label>
+            <div className="flex items-center border rounded-lg px-3 py-2 justify-between">
+              <select
+                className="bg-transparent flex-1 outline-none text-sm"
+                value={selectedDoctor}
+                onChange={(e) => setSelectedDoctor(e.target.value)}
+              >
+                <option value="">Choose a doctor</option>
+                {Object.keys(doctorProfiles).map((doc) => (
+                  <option key={doc} value={doc}>
+                    {doc}
+                  </option>
+                ))}
+              </select>
+              <ChevronRight className="text-gray-400" />
+            </div>
           </div>
+
           <button
-            onClick={handleViewDoctorProfile}
             disabled={!selectedDoctor}
-            style={{ padding: "12px 20px", backgroundColor: "#007bff", color: "white", borderRadius: "8px", border: "none", fontSize: "16px", cursor: "pointer", width: "100%", marginTop: "15px", transition: "background-color 0.3s ease" }}
+            onClick={() => setIsDoctorProfileOpen(true)}
+            className={`w-full rounded-lg py-2 text-sm font-medium ${
+              selectedDoctor
+                ? "bg-gray-200 hover:bg-gray-300"
+                : "bg-gray-100 text-gray-400 cursor-not-allowed"
+            }`}
           >
             View Doctor Profile
           </button>
-          <div style={{ marginBottom: "20px" }}>
-            <label>Select Time</label>
-            <input
-              type="time"
-              value={selectedTime}
-              onChange={(e) => setSelectedTime(e.target.value)}
-              style={{ padding: "12px", borderRadius: "8px", border: "1px solid #ccc", width: "100%", fontSize: "14px", marginTop: "8px" }}
-            />
+
+          <div>
+            <label className="block font-medium mb-1">Select Time</label>
+            <div className="flex items-center border rounded-lg px-3 py-2">
+              <Clock className="text-gray-400 mr-2" />
+              <input
+                type="time"
+                className="flex-1 bg-transparent outline-none text-sm"
+                value={selectedTime}
+                onChange={(e) => setSelectedTime(e.target.value)}
+              />
+            </div>
           </div>
+
           <button
             onClick={handleBooking}
-            style={{ padding: "12px 20px", backgroundColor: "#007bff", color: "white", borderRadius: "8px", border: "none", fontSize: "16px", cursor: "pointer", width: "100%", marginTop: "15px", transition: "background-color 0.3s ease" }}
+            className="w-full bg-indigo-700 text-white rounded-lg py-2 text-sm font-semibold hover:bg-indigo-800"
           >
             Book Appointment
           </button>
         </div>
 
-        <div style={{ backgroundColor: "white", padding: "20px", borderRadius: "8px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)" }}>
-          <h3>Current Appointment</h3>
-          <p>{appointmentDetails.date}</p>
-          <p>
-            <strong>Doctor:</strong> {appointmentDetails.doctor}
-          </p>
-          <p>
-            <strong>Time:</strong> {appointmentDetails.time}
-          </p>
+        {/* Summary */}
+        <div className="bg-white rounded-xl shadow p-6">
+          <h2 className="text-md font-semibold mb-4">Current Appointment</h2>
+          <div className="border rounded-lg p-4 space-y-2 text-center">
+            <p>{selectedDate || "No date selected"}</p>
+            <p className="font-semibold">Doctor</p>
+            <p>{selectedDoctor || "No doctor selected"}</p>
+            <p className="font-semibold">Time</p>
+            <p>{selectedTime || "--:--"}</p>
+          </div>
         </div>
-      </div>
+      </main>
 
+      {/* Modal */}
       {isModalOpen && (
-        <div style={{ position: "fixed", top: "0", left: "0", right: "0", bottom: "0", backgroundColor: "rgba(0, 0, 0, 0.5)", display: "flex", justifyContent: "center", alignItems: "center" }}>
-          <div style={{ backgroundColor: "white", padding: "30px", borderRadius: "8px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", width: "80%", maxWidth: "500px" }}>
-            <h3 style={{ fontSize: "22px", fontWeight: "600" }}>Confirmation message</h3>
-            <div style={{ padding: "15px" }}>
-              <h2>Successful Appointment</h2>
-              <p>Your current appointment is:</p>
-              <p style={{ color: "#007bff", fontWeight: "600" }}>
-                {appointmentDetails.date} at {appointmentDetails.time}
-              </p>
-              <p>With Dr. {appointmentDetails.doctor}</p>
-              <button onClick={handleCloseModal} style={{ backgroundColor: "#ccc", color: "white", borderRadius: "5px", padding: "10px 20px", fontSize: "14px", cursor: "pointer" }}>
-                Return to Homepage
-              </button>
-            </div>
+        <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center z-50">
+          <div className="bg-white p-6 rounded-xl shadow-md text-center w-80">
+            <h3 className="font-semibold text-lg mb-2">Appointment Confirmed</h3>
+            <p className="text-sm">
+              {selectedDoctor} on {selectedDate} at {selectedTime}
+            </p>
+            <button
+              onClick={() => setIsModalOpen(false)}
+              className="mt-4 bg-indigo-700 text-white px-4 py-2 rounded hover:bg-indigo-800 text-sm"
+            >
+              OK
+            </button>
           </div>
         </div>
       )}
 
+      {/* Doctor Profile Modal */}
       {isDoctorProfileOpen && selectedDoctor && (
-        <div style={{ position: "fixed", top: "0", left: "0", right: "0", bottom: "0", backgroundColor: "rgba(0, 0, 0, 0.5)", display: "flex", justifyContent: "center", alignItems: "center" }}>
-          <div style={{ backgroundColor: "white", padding: "30px", borderRadius: "8px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", width: "80%", maxWidth: "500px" }}>
-            <h2>Doctor Profile</h2>
-            <p>
+        <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center z-50">
+          <div className="bg-white p-6 rounded-xl shadow-md text-center w-80">
+            <h3 className="font-semibold text-lg mb-2">Doctor Profile</h3>
+            <p className="text-sm">
               <strong>Name:</strong> {doctorProfiles[selectedDoctor].name}
             </p>
-            <p>
+            <p className="text-sm">
               <strong>Specialization:</strong>{" "}
               {doctorProfiles[selectedDoctor].specialization}
             </p>
-            <p>
+            <p className="text-sm">
               <strong>Fees:</strong> {doctorProfiles[selectedDoctor].fees}
             </p>
             <button
-              onClick={handleCloseDoctorProfile}
-              style={{ backgroundColor: "#ccc", color: "white", borderRadius: "5px", padding: "10px 20px", fontSize: "14px", cursor: "pointer" }}
+              onClick={() => setIsDoctorProfileOpen(false)}
+              className="mt-4 bg-gray-200 px-4 py-2 rounded hover:bg-gray-300 text-sm"
             >
               Close
             </button>
@@ -175,6 +166,4 @@ const AppointmentBooking = () => {
       )}
     </div>
   );
-};
-
-export default AppointmentBooking;
+}

@@ -1,7 +1,6 @@
 import { NavLink, Routes, Route } from "react-router-dom";
 import TherapistList from "./TherapistList";
 import AddTherapist from "./AddTherapist";
-import EditTherapist from "./EditTherapist";
 import AppointmentList from "./AppointmentList";
 import BillingSettings from "./BillingSettings";
 import UserManagement from "./UserManagement";
@@ -22,14 +21,7 @@ export default function QuickAction() {
         </div>
         {/* Tab Navigation */}
         <nav className="max-w-7xl mx-auto px-6 flex space-x-6 border-b">
-          <NavLink
-            to="therapists"
-            className={({ isActive }) =>
-              `${linkClass} ${isActive ? active : inactive}`
-            }
-          >
-            View Therapists
-          </NavLink>
+        
           <NavLink
             to="add-therapist"
             className={({ isActive }) =>
@@ -38,14 +30,7 @@ export default function QuickAction() {
           >
             + Add Therapist
           </NavLink>
-          <NavLink
-            to="edit-therapist/1"
-            className={({ isActive }) =>
-              `${linkClass} ${isActive ? active : inactive}`
-            }
-          >
-            Edit Therapist
-          </NavLink>
+         
           <NavLink
             to="appointments"
             className={({ isActive }) =>
@@ -86,7 +71,6 @@ export default function QuickAction() {
         <Routes>
           <Route path="therapists" element={<TherapistList />} />
           <Route path="add-therapist" element={<AddTherapist />} />
-          <Route path="edit-therapist/:id" element={<EditTherapist />} />
           <Route path="appointments" element={<AppointmentList />} />
           <Route path="billing-settings" element={<BillingSettings />} />
           <Route path="user-management" element={<UserManagement />} />

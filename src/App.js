@@ -11,16 +11,11 @@ import TherapistDashboard from "./components/Therapist/TherapistDashboard";
 import PatientDashboard from "./components/Patient/PatientDashboard";
 import AppointmentBooking from "./components/Patient/AppointmentBooking";
 import QuickAction from "./components/Admin/QuickAction";
-import ViewTherapists from "./components/Admin/ViewTherapists";
-import BillingSettings from "./components/Admin/BillingSettings";
-import Appointments from "./components/Admin/Appointments";
 import AddTherapist from "./components/Admin/AddTherapist";
+
 import ViewTherapist from "./components/Patient/ViewTherapist";
 import MessageTherapist from "./components/Patient/MessageTherapist";
-import TherapistList from "./components/Admin/TherapistList";
-import EditTherapist from "./components/Admin/EditTherapist";
-import UserManagement from "./components/Admin/UserManagement";
-import AnnouncementCenter from "./components/Admin/AnnouncementCenter";
+
 import "./App.css";
 
 function App() {
@@ -30,6 +25,7 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/admin/quick-action/*" element={<QuickAction />} />
+        <Route path="/admin/addtherapist" element={<AddTherapist/>}/>
         <Route path="/manage-security" element={<ManageSecurityPage />} />
         <Route path="/therapist" element={<TherapistDashboard />} />
         <Route path="/therapist/appointments" element={<ManageAppointments />} />
