@@ -1,28 +1,24 @@
 // src/components/Admin/AddTherapist.js
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { createTherapist } from "./TherapistService";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { createTherapist } from './TherapistService';
 
 export default function AddTherapist() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    specialization: "",
-  });
-  const [error, setError] = useState("");
+  const [formData, setFormData] = useState({ name: '', email: '', specialization: '' });
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.specialization) {
-      setError("All fields are required.");
+      setError('All fields are required.');
       return;
     }
     try {
       await createTherapist(formData);
-      navigate("/admin/quick-action/therapists"); // Redirect after success
+      navigate('/admin/therapists'); // Redirect after success
     } catch (err) {
-      setError(err.message || "Failed to create therapist.");
+      setError(err.message || 'Failed to create therapist.');
     }
   };
 
@@ -47,15 +43,10 @@ export default function AddTherapist() {
           type="text"
           placeholder="Specialization"
           value={formData.specialization}
-          onChange={(e) =>
-            setFormData({ ...formData, specialization: e.target.value })
-          }
+          onChange={(e) => setFormData({ ...formData, specialization: e.target.value })}
         />
-        <button type="submit" className="add-btn">
-          Create
-        </button>
+        <button type="submit" className="add-btn">Create</button>
       </form>
     </div>
   );
 }
-
